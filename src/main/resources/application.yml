@@ -10,3 +10,7 @@ logging:
     console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
     file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
 #  file: /var/log/application.log
+
+datasource:
+  url: jdbc:hsqldb:mem:testdb
+  driverClassName: org.hsqldb.jdbc.JDBCDriver
