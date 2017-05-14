@@ -12,6 +12,6 @@ public class SampleController {
 
     @RequestMapping(value="/", method = RequestMethod.GET)
     public String index() {
-        return "index";
+        return "index.html";
     }
 }
