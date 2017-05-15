@@ -10,6 +10,7 @@
     <packaging>war</packaging>
 
     <name>${project.artifactId}</name>
+    <description>Technical Test - Asset Manager</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>

@@ -1,31 +1,41 @@
 package com.assetmanager.controller;
 
 import com.assetmanager.model.Device;
-import com.assetmanager.service.DeviceService;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.assetmanager.repositories.DeviceRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/devices")
 public class DeviceController {
-    private final DeviceService deviceService;
+    @Autowired
+    private DeviceRepository deviceRepository;
 
-    public DeviceController(final DeviceService deviceService) {
-        this.deviceService = deviceService;
+    @RequestMapping(method = RequestMethod.GET)
+    public List<Device> findDevices() {
+        return deviceRepository.findAll();
     }
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Iterable<Device>> findAll() {
-        return ResponseEntity.ok(deviceService.findAll());
+    @RequestMapping(method = RequestMethod.POST)
+    public Device addDevice(@RequestBody Device device) {
+        return deviceRepository.saveAndFlush(device);
     }
 
-    @GetMapping(value = "/{device_id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Device> get(@PathVariable("device_id") String deviceId) {
-        return ResponseEntity.ok(deviceService.get(deviceId));
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public Device updateDevice(@RequestBody Device updatedDevice,  @PathVariable Integer id) {
+        updatedDevice.setId(id);
+        return deviceRepository.saveAndFlush(updatedDevice);
     }
 
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public void deleteDevice(@PathVariable Integer id) {
+        deviceRepository.delete(id);
+    }
 }
+
+
+
+
+

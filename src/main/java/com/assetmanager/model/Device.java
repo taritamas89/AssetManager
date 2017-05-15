@@ -1,40 +1,51 @@
 package com.assetmanager.model;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
-@Table(name = "devices")
 public class Device {
     @Id
     @GeneratedValue
-    @Column(name="id")
-    private Long id;
+    @Column(name = "device_id")
+    private Integer id;
 
+    @Column
     @NotEmpty
-    @Column(name="name", nullable = false)
     private String name;
 
-    @NotEmpty
-    @Column(name="purchaseDate", nullable = false)
+    @Column(name= "purchase_date")
+    @NotNull
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date purchaseDate;
 
-    @NotEmpty
-    @Column(name="active", nullable = false)
+    @Column
+    @NotNull
     private Boolean active;
 
+    @OneToMany(mappedBy = "device", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<History> histories;
 
-    public Device(Long id, String name, Date purchaseDate, Boolean active) {
-        this.id = id;
+    public Device(String name, Date purchaseDate, Boolean active) {
         this.name = name;
         this.purchaseDate = purchaseDate;
         this.active = active;
     }
 
-    public Long getId() {
+    public Device() {
+    }
+
+    public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -53,7 +64,7 @@ public class Device {
         this.purchaseDate = purchaseDate;
     }
 
-    public Boolean getActive() {
+    public Boolean isActive() {
         return active;
     }
 
@@ -61,13 +72,11 @@ public class Device {
         this.active = active;
     }
 
-    @Override
-    public String toString() {
-        return "Device{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", purchaseDate=" + purchaseDate +
-                ", active=" + active +
-                '}';
+    public Set<History> getHistories() {
+        return histories;
+    }
+
+    public void setHistories(Set<History> histories) {
+        this.histories = histories;
     }
 }

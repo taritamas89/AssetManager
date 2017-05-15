@@ -12,5 +12,7 @@ logging:
 #  file: /var/log/application.log
 
 datasource:
-  url: jdbc:hsqldb:mem:testdb
+  url: jdbc:hsqldb:mem:assetdb
   driverClassName: org.hsqldb.jdbc.JDBCDriver
+  user: SA
+  password:
