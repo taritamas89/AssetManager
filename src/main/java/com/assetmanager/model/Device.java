@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -29,7 +30,10 @@ public class Device {
     private Boolean active;
 
     @OneToMany(mappedBy = "device", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<History> histories;
+//    @ManyToMany(cascade = CascadeType.ALL)
+//    @JoinTable(name = "history", joinColumns = @JoinColumn(name = "device_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
+    private Set<History> histories = new HashSet<History>();
+
 
     public Device(String name, Date purchaseDate, Boolean active) {
         this.name = name;

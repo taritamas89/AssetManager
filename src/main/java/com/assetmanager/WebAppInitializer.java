@@ -40,19 +40,22 @@ public class WebAppInitializer implements CommandLineRunner {
         history.setDevice(deviceA);
         history.setUser(userA);
         history.setAssignedDate(new Date());
+
         deviceA.getHistories().add(history);
 
         userRepository.save(userA);
         deviceRepository.save(deviceA);
 
         // test
-        System.out.println(deviceA.getHistories().size());
+//        System.out.println(deviceA.getHistories().size());
+        logger.debug("Device history size: " + deviceA.getHistories().size());
 
         // update
-        deviceA.getHistories().remove(history);
-        deviceRepository.save(deviceA);
+//        deviceA.getHistories().remove(history);
+//        deviceRepository.save(deviceA);
 
         // test
-        System.out.println(deviceA.getHistories().size());
+//        System.out.println(deviceA.getHistories().size());
+        logger.debug("Device history size2: " + deviceA.getHistories().size());
     }
 }

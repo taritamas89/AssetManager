@@ -3,6 +3,7 @@ package com.assetmanager.model;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -17,7 +18,8 @@ public class User {
     private String name;
 
     @OneToMany(mappedBy = "user")
-    private Set<History> histories;
+//    @ManyToMany(mappedBy = "user")
+    private Set<History> histories = new HashSet<History>();;
 
     public User(String name) {
         this.name = name;
